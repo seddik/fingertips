@@ -1,0 +1,19 @@
+﻿<Window x:Class="FingerTips.wList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FingerTips"
+        mc:Ignorable="d"
+        Title="Lists" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <Grid Background="#eee">
+        <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="List Title" Margin="10"/>
+            <TextBox Margin="10" Width="300" x:Name="t_title"/>
+        </StackPanel>
+            <Button Content="OK" Click="Ok_Clicked" Margin="10" HorizontalAlignment="Center" Width="200"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

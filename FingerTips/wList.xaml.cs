@@ -48,6 +48,7 @@ namespace FingerTips
         {
             var w = new wList();
             w.t_title.Text = old;
+            w.t_title.SelectAll();
             w.ShowDialog();
             return w.TheTitle;
 

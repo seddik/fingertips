@@ -25,13 +25,48 @@ namespace FingerTips
 
             this.DataContext = MainModelView.Instance;
         }
-         
+
         private void AddList_Click(object sender, RoutedEventArgs e)
         {
             var title = wList.Read();
             if (title == null)
                 return;
-            MainModelView.Instance.AddItem(new List { Title = title, Order = MainModelView.Instance.Lists.Select(X=>X.Order).DefaultIfEmpty().Max() + 1 }); 
+            MainModelView.Instance.AddItem(new List { Title = title, Order = MainModelView.Instance.Lists.Select(X => X.Order).DefaultIfEmpty().Max() + 1 });
+        }
+
+        private void List_Options_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var tb = (TextBlock)sender;
+            var list = tb.Tag as List;
+
+            if (tb.ContextMenu == null)
+            {
+                tb.ContextMenu = new ContextMenu();
+                var mi = new MenuItem { Header = "Edit" };
+                mi.Click += (s, o) =>
+                {
+                    var r = wList.Read(list.Title);
+                    if (r == null)
+                        return;
+
+                    list.Title = r;
+                    MainModelView.Instance.EditItem(list.Id, list);
+                };
+                tb.ContextMenu.Items.Add(mi);
+
+                mi = new MenuItem { Header = "Delete" };
+                mi.Click += (s, o) =>
+                {
+                    MainModelView.Instance.DeleteItem(list.Id);
+                };
+                tb.ContextMenu.Items.Add(mi);
+
+
+            }
+
+            tb.ContextMenu.IsOpen = true;
+
+
         }
     }
 }

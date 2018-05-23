@@ -46,25 +46,90 @@ namespace FingerTips
         {
             try
             {
+                var dataset = GetDataEntitySet<T>(key);
+                int id = 1;
+                if (dataset != null)
+                    id = dataset.Select(X => X.Id).DefaultIfEmpty().Max() + 1;
+
+                t.Id = id;
                 File.AppendAllLines(Tools.LocalFile(key), new List<string> { t.Serialize() });
             }
-            catch  
+            catch
             {
                 return false;
-                
+
+            }
+            return true;
+        }
+
+        internal bool Edit<T>(string key, int id, T t) where T : DataEntity
+        {
+            try
+            {
+                var all = File.ReadAllLines(Tools.LocalFile(key));
+
+                List<string> l = new List<string>();
+                foreach (var item in all)
+                {
+                    var tt = Activator.CreateInstance<T>();
+                    tt.Deserialize(item);
+                    if (tt.Id == id)
+                        l.Add(t.Serialize());
+                    else
+                        l.Add(item);
+                }
+                File.WriteAllLines(Tools.LocalFile(key), l);
+            }
+            catch
+            {
+                return false;
+
+            }
+            return true;
+        }
+
+        internal bool Delete<T>(string key, int id) where T : DataEntity
+        {
+            try
+            {
+                var all = File.ReadAllLines(Tools.LocalFile(key));
+
+                List<string> l = new List<string>();
+                foreach (var item in all)
+                {
+                    var tt = Activator.CreateInstance<T>();
+                    tt.Deserialize(item);
+                    if (tt.Id == id)
+                        continue;
+                    l.Add(item);
+                }
+
+                File.WriteAllLines(Tools.LocalFile(key), l);
+            }
+            catch
+            {
+                return false;
+
             }
             return true;
         }
     }
 
-    public abstract class DataEntity
+    public abstract class DataEntity : INotifyPropertyChanged
     {
         public int Id { get; set; }
 
         public int Order { get; set; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public abstract void Deserialize(string data);
 
         public abstract string Serialize();
+
+        public void UpdateProp(string prop = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
     }
 }

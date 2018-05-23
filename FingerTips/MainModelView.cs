@@ -63,7 +63,7 @@ namespace FingerTips
 
         public bool AddItem(List t)
         {
-            if (!DataStore.Instance.Add<List>("list", t))
+            if (!DataStore.Instance.Add("list", t))
             {
                 MessageBox.Show("Data save error");
                 return false;
@@ -73,22 +73,34 @@ namespace FingerTips
             return true;
         }
 
-        public bool DeleteItem(int id)
-        {
-            var t = Find(id);
-            if (t == null)
-                return false;
-            Instance.Lists.Remove(t);
-            Instance.UpdateAll();
-            return true;
-        }
 
         public bool EditItem(int id, List t)
         {
+            if (!DataStore.Instance.Edit("list", id, t))
+            {
+                MessageBox.Show("Data save error");
+                return false;
+            }
             var old = Find(id);
 
             old.Title = t.Title;
             old.Order = t.Order;
+            Instance.UpdateAll();
+            return true;
+        }
+
+
+        public bool DeleteItem(int id)
+        {
+            if (!DataStore.Instance.Delete<List>("list", id))
+            {
+                MessageBox.Show("Data save error");
+                return false;
+            }
+            var t = Find(id);
+            if (t == null)
+                return false;
+            Instance.Lists.Remove(t);
             Instance.UpdateAll();
             return true;
         }
@@ -98,7 +110,7 @@ namespace FingerTips
             return Instance.Lists.FirstOrDefault(X => X.Id == id);
         }
 
-        public ObservableCollection<List> Lists { get; set; } 
+        public ObservableCollection<List> Lists { get; set; }
         public ObservableCollection<Label> Labels { get; set; } = new ObservableCollection<Label>();
         public ObservableCollection<Member> Members { get; set; } = new ObservableCollection<Member>();
         public List<List> OrderedLists => Lists.OrderBy(X => X.Order).ThenBy(X => X.Title).ToList();

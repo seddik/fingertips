@@ -25,9 +25,12 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border  Width="250" Margin="20" Background="#E2E4E6" VerticalAlignment="Top" CornerRadius="5">
+                        <Border  Width="250" Margin="20" Background="#E2E4E6" VerticalAlignment="Top"  CornerRadius="5">
                             <DockPanel >
-                                <TextBlock Text="{Binding Title}" DockPanel.Dock="Top" TextAlignment="Center" Margin="0,10,0,10"/>
+                                <DockPanel DockPanel.Dock="Top">
+                                    <TextBlock Text="..." DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10" Tag="{Binding .}" PreviewMouseUp="List_Options_PreviewMouseUp"/>
+                                    <TextBlock Text="{Binding Title}"  TextAlignment="Center" Margin="0,10,0,10" DockPanel.Dock="Left"/>
+                                </DockPanel>
                                 <ListBox ItemsSource="{Binding OrderedCards}"  Style="{x:Null}" Background="Transparent" BorderThickness="0" BorderBrush="Transparent">
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem">

@@ -59,6 +59,30 @@ namespace FingerTips
 
             Lists = new ObservableCollection<List>(DataStore.Instance.GetDataEntitySet<List>("list") ?? new List<List>());
 
+            var cards = DataStore.Instance.GetDataEntitySet<Card>("card") ?? new List<Card>();
+
+            foreach (var item in cards)
+            {
+                var list = Lists.FirstOrDefault(X => X.Id == item.IdList);
+
+                if (list == null)
+                    continue;
+
+                list.Cards.Add(item);
+            }
+
+        }
+
+        internal bool AddCard(Card card)
+        {
+            if (!DataStore.Instance.Add("card", card))
+            {
+                MessageBox.Show("Data save error");
+                return false;
+            }
+            Instance.Lists.FirstOrDefault(X => X.Id == card.List.Id).Cards.Add(card);
+            Instance.UpdateAll();
+            return true;
         }
 
         public bool AddItem(List t)

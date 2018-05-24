@@ -42,7 +42,27 @@ namespace FingerTips
             if (tb.ContextMenu == null)
             {
                 tb.ContextMenu = new ContextMenu();
-                var mi = new MenuItem { Header = "Edit" };
+                var mi = new MenuItem { Header = "Add Card" };
+                mi.Click += (s, o) =>
+                {
+                    var r = wCard.Read();
+                    if (r == null)
+                        return;
+
+                    var card = new Card
+                    {
+                        Title = r,
+                        Order = list.Cards == null || !list.Cards.Any() ? 1 : list.Cards.Max(X => X.Order) + 1,
+                        List = list
+                    };
+
+                    
+                    MainModelView.Instance.AddCard(card);
+                };
+                tb.ContextMenu.Items.Add(mi);
+
+                tb.ContextMenu.Items.Add(new Separator());
+                mi = new MenuItem { Header = "Edit" };
                 mi.Click += (s, o) =>
                 {
                     var r = wList.Read(list.Title);

@@ -57,7 +57,7 @@ namespace FingerTips
               Lists[1].Cards[1].Members.Add(Members[2]);
               Lists[1].Cards[2].Labels.Add(Labels[0]);*/
 
-            Lists = new ObservableCollection<List>(AppContext.Instance.Lists);
+            UpdateAll();
             /*
                         var cards = DataStore.Instance.GetDataEntitySet<Card>("card") ?? new List<Card>();
 
@@ -172,9 +172,6 @@ namespace FingerTips
         }
         */
         public ObservableCollection<List> Lists { get; set; }
-        public ObservableCollection<Label> Labels { get; set; } = new ObservableCollection<Label>();
-        public ObservableCollection<Member> Members { get; set; } = new ObservableCollection<Member>();
-        public List<List> OrderedLists => Lists.OrderBy(X => X.Order).ThenBy(X => X.Title).ToList();
         static MainModelView _instance;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -184,6 +181,7 @@ namespace FingerTips
 
         public void UpdateAll()
         {
+            Lists = new ObservableCollection<List>(oAppContext.Instance.Lists.OrderBy(X => X.Order));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
         }
 

@@ -16,8 +16,11 @@
                 <MenuItem Header="Lists">
                     <MenuItem Header="Add" Click="AddList_Click"/>
                 </MenuItem>
+                <MenuItem Header="Labels">
+                    <MenuItem Header="Add" Click="AddLabel_Click"/>
+                </MenuItem>
             </Menu>
-            <ItemsControl ItemsSource="{Binding OrderedLists}" DockPanel.Dock="Bottom">
+            <ItemsControl ItemsSource="{Binding Lists}" DockPanel.Dock="Bottom">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" Margin="10" />
@@ -31,7 +34,7 @@
                                     <TextBlock Text="..." DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10" Tag="{Binding .}" PreviewMouseUp="List_Options_PreviewMouseUp"/>
                                     <TextBlock Text="{Binding Title}"  TextAlignment="Center" Margin="0,10,0,10" DockPanel.Dock="Left"/>
                                 </DockPanel>
-                                <ListBox ItemsSource="{Binding OrderedCards}"  Style="{x:Null}" Background="Transparent" BorderThickness="0" BorderBrush="Transparent">
+                                <ListBox ItemsSource="{Binding Cards}"  Style="{x:Null}" Background="Transparent" BorderThickness="0" BorderBrush="Transparent">
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem">
                                             <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>

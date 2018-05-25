@@ -10,9 +10,10 @@ namespace FingerTips
     public class Label : DataEntity
     {
         public string Name { get; set; }
+        public string ColorString { get; set; }
         [NotMapped]
         public Brush Color { get; set; }
 
-        public virtual ICollection<Card> Cards { get; set; }
+        public virtual ICollection<Card> Cards { get; set; } = new HashSet<Card>();
     }
 }

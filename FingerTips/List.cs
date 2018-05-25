@@ -14,7 +14,7 @@ namespace FingerTips
         }
         public string Title { get; set; }
 
-        public virtual ICollection<Card> Cards { get; set; }
+        public virtual ICollection<Card> Cards { get; set; } = new HashSet<Card>();
 
 
         public List<Card> OrderedCards => Cards.OrderBy(X => X.Order).ThenBy(X => X.Title).ToList();

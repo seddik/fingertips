@@ -68,7 +68,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AppContext.cs" />
+    <Compile Include="oAppContext.cs" />
     <Compile Include="DataStore.cs" />
     <Compile Include="Migrations\201805242250512_InitialCreate.cs" />
     <Compile Include="Migrations\201805242250512_InitialCreate.Designer.cs">
@@ -76,6 +76,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Tools.cs" />
+    <Compile Include="wLabel.xaml.cs">
+      <DependentUpon>wLabel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="wCard.xaml.cs">
       <DependentUpon>wCard.xaml</DependentUpon>
     </Compile>
@@ -99,6 +102,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="wLabel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="wCard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

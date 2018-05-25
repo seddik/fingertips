@@ -12,8 +12,8 @@ namespace FingerTips
         
 
 
-        public virtual ICollection<Label> Labels { get; set; } = new ObservableCollection<Label>();
-        public virtual ICollection<Member> Members { get; set; } = new ObservableCollection<Member>();
+        public virtual ICollection<Label> Labels { get; set; } = new HashSet<Label>();
+        public virtual ICollection<Member> Members { get; set; } = new HashSet<Member>();
 
         public virtual List List { get; set; }
     }

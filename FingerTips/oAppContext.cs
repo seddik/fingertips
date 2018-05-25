@@ -10,9 +10,9 @@ using System.Windows.Media;
 
 namespace FingerTips
 {
-    public class AppContext : DbContext
+    public class oAppContext : DbContext
     {
-        public AppContext() : base(nameOrConnectionString: "Default")
+        public oAppContext() : base(nameOrConnectionString: "Default")
         {
             Database.SetInitializer(new AppInitializer());
         }
@@ -29,11 +29,18 @@ namespace FingerTips
         public DbSet<Label> Labels { get; set; }
         public DbSet<Member> Members { get; set; }
 
-        static AppContext _instance;
-        public static AppContext Instance => _instance ?? (_instance = new AppContext());
+        static oAppContext _instance;
+        public static oAppContext Instance => _instance ?? (_instance = new oAppContext());
+
+        internal void SaveChangesAndUpdate()
+        {
+
+            this.SaveChanges();
+            MainModelView.Instance.UpdateAll();
+        }
     }
 
-    public class AppInitializer : CreateDatabaseIfNotExists<AppContext>
+    public class AppInitializer : CreateDatabaseIfNotExists<oAppContext>
     {
     }
 }

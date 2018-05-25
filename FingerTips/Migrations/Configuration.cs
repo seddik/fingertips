@@ -5,7 +5,7 @@ namespace FingerTips.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<FingerTips.AppContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<FingerTips.oAppContext>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@ namespace FingerTips.Migrations
             ContextKey = "FingerTips.AppContext";
         }
 
-        protected override void Seed(FingerTips.AppContext context)
+        protected override void Seed(FingerTips.oAppContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -28,15 +28,15 @@ namespace FingerTips
 
         private void AddList_Click(object sender, RoutedEventArgs e)
         {
-            var title = wList.Read();
+          /*  var title = wList.Read();
             if (title == null)
                 return;
-            MainModelView.Instance.AddItem(new List { Title = title, Order = MainModelView.Instance.Lists.Select(X => X.Order).DefaultIfEmpty().Max() + 1 });
+            MainModelView.Instance.AddItem(new List { Title = title, Order = MainModelView.Instance.Lists.Select(X => X.Order).DefaultIfEmpty().Max() + 1 });*/
         }
 
         private void List_Options_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            var tb = (TextBlock)sender;
+          /*  var tb = (TextBlock)sender;
             var list = tb.Tag as List;
 
             if (tb.ContextMenu == null)
@@ -86,7 +86,40 @@ namespace FingerTips
 
             tb.ContextMenu.IsOpen = true;
 
+            */
+        }
 
+        private void Card_Options_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+         /*   var tb = (TextBlock)sender;
+            var card = tb.Tag as Card;
+
+            if (tb.ContextMenu == null)
+            {
+                tb.ContextMenu = new ContextMenu();
+                var   mi = new MenuItem { Header = "Edit" };
+                mi.Click += (s, o) =>
+                {
+                    var r = wCard.Read(card.Title);
+                    if (r == null)
+                        return;
+
+                    card.Title = r;
+                    MainModelView.Instance.EditCard(card.Id, card);
+                };
+                tb.ContextMenu.Items.Add(mi);
+
+                mi = new MenuItem { Header = "Delete" };
+                mi.Click += (s, o) =>
+                {
+                    MainModelView.Instance.DeleteCard(card.Id);
+                };
+                tb.ContextMenu.Items.Add(mi);
+
+
+            }
+
+            tb.ContextMenu.IsOpen = true;*/
         }
     }
 }

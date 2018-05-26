@@ -23,6 +23,11 @@ namespace FingerTips
         {
             InitializeComponent();
 
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
             this.DataContext = MainModelView.Instance;
         }
 

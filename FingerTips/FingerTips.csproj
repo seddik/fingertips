@@ -68,13 +68,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="oAppContext.cs" />
-    <Compile Include="DataStore.cs" />
-    <Compile Include="Migrations\201805242250512_InitialCreate.cs" />
-    <Compile Include="Migrations\201805242250512_InitialCreate.Designer.cs">
-      <DependentUpon>201805242250512_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201805262335013_ft.cs" />
+    <Compile Include="Migrations\201805262335013_ft.Designer.cs">
+      <DependentUpon>201805262335013_ft.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="oAppContext.cs" />
+    <Compile Include="DataStore.cs" />
     <Compile Include="Tools.cs" />
     <Compile Include="wLabel.xaml.cs">
       <DependentUpon>wLabel.xaml</DependentUpon>
@@ -129,8 +129,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201805242250512_InitialCreate.resx">
-      <DependentUpon>201805242250512_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805262335013_ft.resx">
+      <DependentUpon>201805262335013_ft.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

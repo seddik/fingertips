@@ -7,13 +7,13 @@ namespace FingerTips.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class ft : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ft));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805242250512_InitialCreate"; }
+            get { return "201805262335013_ft"; }
         }
         
         string IMigrationMetadata.Source

@@ -10,7 +10,6 @@ namespace FingerTips.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "FingerTips.AppContext";
         }
 
         protected override void Seed(FingerTips.oAppContext context)

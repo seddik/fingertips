@@ -23,6 +23,11 @@ namespace FingerTips
         {
             InitializeComponent();
 
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
             this.DataContext = MainModelView.Instance;
         }
 
@@ -31,7 +36,10 @@ namespace FingerTips
             var title = wList.Read();
             if (title == null)
                 return;
-            MainModelView.Instance.AddItem(new List { Title = title, Order = MainModelView.Instance.Lists.Select(X => X.Order).DefaultIfEmpty().Max() + 1 });
+
+            oAppContext.Instance.Lists.Add(new List { Title = title, Order = 9999 });
+            oAppContext.Instance.SaveChangesAndUpdate();
+
         }
 
         private void List_Options_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -56,8 +64,9 @@ namespace FingerTips
                         List = list
                     };
 
-                    
-                    MainModelView.Instance.AddCard(card);
+                    list = oAppContext.Instance.Lists.Find(list.Id);
+                    list.Cards.Add(card);
+                    oAppContext.Instance.SaveChangesAndUpdate();
                 };
                 tb.ContextMenu.Items.Add(mi);
 
@@ -69,15 +78,18 @@ namespace FingerTips
                     if (r == null)
                         return;
 
+                    list = oAppContext.Instance.Lists.Find(list.Id);
                     list.Title = r;
-                    MainModelView.Instance.EditItem(list.Id, list);
+                    oAppContext.Instance.SaveChangesAndUpdate();
                 };
                 tb.ContextMenu.Items.Add(mi);
 
                 mi = new MenuItem { Header = "Delete" };
                 mi.Click += (s, o) =>
                 {
-                    MainModelView.Instance.DeleteItem(list.Id);
+                    list = oAppContext.Instance.Lists.Find(list.Id);
+                    oAppContext.Instance.Lists.Remove(list);
+                    oAppContext.Instance.SaveChangesAndUpdate();
                 };
                 tb.ContextMenu.Items.Add(mi);
 
@@ -87,6 +99,73 @@ namespace FingerTips
             tb.ContextMenu.IsOpen = true;
 
 
+        }
+
+        private void Card_Options_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var tb = (TextBlock)sender;
+            var card = tb.Tag as Card;
+
+            var AllLabels = oAppContext.Instance.Labels.OrderBy(X => X.Order).ToList();
+            if (tb.ContextMenu == null)
+            {
+                tb.ContextMenu = new ContextMenu();
+                var mi = new MenuItem { Header = "Labels" };
+                tb.ContextMenu.Items.Add(mi);
+
+                foreach (var lb in AllLabels)
+                {
+                    var mmi = new MenuItem { Header = lb.Name, IsCheckable = true, IsChecked = lb.Cards.Any(X => X.Id == card.Id) };
+                    mmi.Click += (s, o) =>
+                    {
+                        card = oAppContext.Instance.Cards.Find(card.Id);
+                        card.Labels.Add(lb);
+                        oAppContext.Instance.SaveChangesAndUpdate();
+                    };
+                    mi.Items.Add(mmi);
+                }
+                tb.ContextMenu.Items.Add(new Separator());
+
+                mi = new MenuItem { Header = "Edit" };
+                mi.Click += (s, o) =>
+                {
+                    var r = wCard.Read(card.Title);
+                    if (r == null)
+                        return;
+
+
+                    card = oAppContext.Instance.Cards.Find(card.Id);
+                    card.Title = r;
+
+                    oAppContext.Instance.SaveChangesAndUpdate();
+
+                };
+                tb.ContextMenu.Items.Add(mi);
+
+                mi = new MenuItem { Header = "Delete" };
+                mi.Click += (s, o) =>
+                {
+                    card = oAppContext.Instance.Cards.Find(card.Id);
+
+                    oAppContext.Instance.Cards.Remove(card);
+                    oAppContext.Instance.SaveChangesAndUpdate();
+                };
+                tb.ContextMenu.Items.Add(mi);
+
+
+            }
+
+            tb.ContextMenu.IsOpen = true;
+        }
+
+        private void AddLabel_Click(object sender, RoutedEventArgs e)
+        {
+            var title = wLabel.Read();
+            if (title == null)
+                return;
+
+            oAppContext.Instance.Labels.Add(new Label { Name = title, Color = Brushes.Maroon, Order = 9999 });
+            oAppContext.Instance.SaveChangesAndUpdate();
         }
     }
 }

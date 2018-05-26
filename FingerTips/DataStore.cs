@@ -21,6 +21,7 @@ namespace FingerTips
 
         }
 
+        /*
         public List<T> GetDataEntitySet<T>(string key) where T : DataEntity
         {
             var file = Tools.LocalFile(key);
@@ -112,7 +113,7 @@ namespace FingerTips
 
             }
             return true;
-        }
+        }*/
     }
 
     public abstract class DataEntity : INotifyPropertyChanged
@@ -123,10 +124,7 @@ namespace FingerTips
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public abstract void Deserialize(string data);
-
-        public abstract string Serialize();
-
+  
         public void UpdateProp(string prop = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

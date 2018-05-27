@@ -19,6 +19,9 @@
                 <MenuItem Header="Labels">
                     <MenuItem Header="Add" Click="AddLabel_Click"/>
                 </MenuItem>
+                <MenuItem Header="Members">
+                    <MenuItem Header="Add" Click="AddMember_Click"/>
+                </MenuItem>
             </Menu>
             <ItemsControl ItemsSource="{Binding Lists}" DockPanel.Dock="Bottom">
                 <ItemsControl.ItemsPanel>

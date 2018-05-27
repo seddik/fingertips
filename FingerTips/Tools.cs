@@ -42,5 +42,18 @@ namespace FingerTips
                 return 0;
             }
         }
+
+        static BrushConverter bconv = new BrushConverter();
+        public static SolidColorBrush ToBrush(this string brush)
+        {
+            try
+            {
+                return (SolidColorBrush)bconv.ConvertFromString(brush);
+            }
+            catch
+            {
+                return Brushes.Black;
+            }
+        }
     }
 }

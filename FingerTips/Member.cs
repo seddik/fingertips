@@ -11,9 +11,9 @@ namespace FingerTips
     {
         public string Name { get; set; }
         public string Code => Name.Length < 2 ? Name : Name.Substring(0, 2);
-
+        public string ColorString { get; set; }
         [NotMapped]
-        public Brush Color { get; set; }
+        public Brush Color => ColorString.ToBrush();
 
         public virtual ICollection<Card> Cards { get; set; }
     }

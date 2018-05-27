@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace FingerTips
         public string Name { get; set; }
         public string ColorString { get; set; }
         [NotMapped]
-        public Brush Color { get; set; }
+        public Brush Color => ColorString.ToBrush();
 
         public virtual ICollection<Card> Cards { get; set; } = new HashSet<Card>();
     }

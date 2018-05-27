@@ -76,6 +76,9 @@
     <Compile Include="oAppContext.cs" />
     <Compile Include="DataStore.cs" />
     <Compile Include="Tools.cs" />
+    <Compile Include="wMember.xaml.cs">
+      <DependentUpon>wMember.xaml</DependentUpon>
+    </Compile>
     <Compile Include="wLabel.xaml.cs">
       <DependentUpon>wLabel.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="wMember.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="wLabel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

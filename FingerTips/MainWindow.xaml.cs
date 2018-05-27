@@ -106,7 +106,9 @@ namespace FingerTips
             var tb = (TextBlock)sender;
             var card = tb.Tag as Card;
 
-            var AllLabels = oAppContext.Instance.Labels.OrderBy(X => X.Order).ToList();
+            var AllLabels = MainModelView.Instance.Labels;
+            var AllMembers = MainModelView.Instance.Members;
+
             if (tb.ContextMenu == null)
             {
                 tb.ContextMenu = new ContextMenu();
@@ -119,7 +121,29 @@ namespace FingerTips
                     mmi.Click += (s, o) =>
                     {
                         card = oAppContext.Instance.Cards.Find(card.Id);
-                        card.Labels.Add(lb);
+                        if (mmi.IsChecked)
+                            card.Labels.Add(lb);
+                        else
+                            card.Labels.Remove(lb);
+                        oAppContext.Instance.SaveChangesAndUpdate();
+                    };
+                    mi.Items.Add(mmi);
+                }
+
+
+                mi = new MenuItem { Header = "Members" };
+                tb.ContextMenu.Items.Add(mi);
+
+                foreach (var mem in AllMembers)
+                {
+                    var mmi = new MenuItem { Header = mem.Name, IsCheckable = true, IsChecked = mem.Cards.Any(X => X.Id == card.Id) };
+                    mmi.Click += (s, o) =>
+                    {
+                        card = oAppContext.Instance.Cards.Find(card.Id);
+                        if (mmi.IsChecked)
+                            card.Members.Add(mem);
+                        else
+                            card.Members.Remove(mem);
                         oAppContext.Instance.SaveChangesAndUpdate();
                     };
                     mi.Items.Add(mmi);
@@ -164,7 +188,17 @@ namespace FingerTips
             if (title == null)
                 return;
 
-            oAppContext.Instance.Labels.Add(new Label { Name = title, Color = Brushes.Maroon, Order = 9999 });
+            oAppContext.Instance.Labels.Add(new Label { Name = title, Order = 9999 });
+            oAppContext.Instance.SaveChangesAndUpdate();
+        }
+
+        private void AddMember_Click(object sender, RoutedEventArgs e)
+        {
+            var title = wMember.Read();
+            if (title == null)
+                return;
+
+            oAppContext.Instance.Members.Add(new Member { Name = title, Order = 9999 });
             oAppContext.Instance.SaveChangesAndUpdate();
         }
     }
